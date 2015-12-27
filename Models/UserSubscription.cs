@@ -2,16 +2,18 @@ namespace ExperiencePortal.Service.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class UserSubscription
+    using System.Runtime.Serialization;
+
+    [DataContract]
+    public class UserSubscription
     {
+        [DataMember]
         public int UserID { get; set; }
+        [DataMember]
         public int SubscriptionID { get; set; }
+        [DataMember]
         public DateTime? LastPostReceivedDate { get; set; }
+        [DataMember]
         public int SubscriptionStatusID { get; set; }
-    
-        public virtual SubscriptionStatus SubscriptionStatus { get; set; }
-        public virtual User User { get; set; }
-        public virtual User Subscriptions { get; set; }
     }
 }

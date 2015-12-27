@@ -7,34 +7,72 @@ namespace ExperiencePortal.Service.Extensions
 {
     public static class ModelsExtensions
     {
-        public static DataAccess.User ToModel(this Models.User user)
+        public static DataAccess.User Convert(this Models.User user)
         {
-            return new DataAccess.User();
+            return new DataAccess.User()
+            {
+                AuthenticationToken = user.AuthenticationToken,
+                ID = user.ID,
+                UserName = user.UserName
+            };
         }
 
-        public static DataAccess.UserSubscription ToModel(this Models.UserSubscription userSubscription)
+        public static DataAccess.UserSubscription Convert(this Models.UserSubscription userSubscription)
         {
-            return new DataAccess.UserSubscription();
+            return new DataAccess.UserSubscription()
+            {
+                UserID = userSubscription.UserID,
+                SubscriptionID = userSubscription.SubscriptionID,
+                SubscriptionStatusID = userSubscription.SubscriptionStatusID,
+                LastPostReceivedDate = userSubscription.LastPostReceivedDate,
+            };
         }
 
-        public static DataAccess.UserPost ToModel(this Models.UserPost userPost)
+        public static DataAccess.UserPost Convert(this Models.UserPost userPost)
         {
-            return new DataAccess.UserPost();
+            return new DataAccess.UserPost()
+            {
+                ID = userPost.ID,
+                UserID = userPost.UserID,
+                PostDate = userPost.PostDate,
+                Latitude = userPost.Latitude,
+                Longitude = userPost.Longitude,
+                Photo = userPost.Photo,
+            };
         }
 
-        public static Models.User ToModel(this DataAccess.User user)
+        public static Models.User Convert(this DataAccess.User user)
         {
-            return new Models.User();
+            return new Models.User()
+            {
+                AuthenticationToken = user.AuthenticationToken,
+                ID = user.ID,
+                UserName = user.UserName
+            };
         }
 
-        public static Models.UserSubscription ToModel(this DataAccess.UserSubscription userSubscription)
+        public static Models.UserSubscription Convert(this DataAccess.UserSubscription userSubscription)
         {
-            return new Models.UserSubscription();
+            return new Models.UserSubscription()
+            {
+                UserID = userSubscription.UserID,
+                LastPostReceivedDate = userSubscription.LastPostReceivedDate,
+                SubscriptionID = userSubscription.SubscriptionID,
+                SubscriptionStatusID = userSubscription.SubscriptionStatusID
+            };
         }
 
-        public static Models.UserPost ToModel(this DataAccess.UserPost userPost)
+        public static Models.UserPost Convert(this DataAccess.UserPost userPost)
         {
-            return new Models.UserPost();
+            return new Models.UserPost()
+            {
+                ID = userPost.ID,
+                UserID = userPost.UserID,
+                Latitude = userPost.Latitude,
+                Longitude = userPost.Longitude,
+                Photo = userPost.Photo,
+                PostDate = userPost.PostDate
+            };
         }
     }
 }

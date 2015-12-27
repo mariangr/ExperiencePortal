@@ -19,7 +19,7 @@ namespace ExperiencePortal.Service
         {
             using (DataAccess.DataContext dataContext = new DataAccess.DataContext())
             {
-                var usr =  dataContext.GetByEntity<User>().All().FirstOrDefault(u => u.AuthenticationToken == authentivationToken).ToModel();
+                var usr =  dataContext.GetByEntity<User>().All().FirstOrDefault(u => u.AuthenticationToken == authentivationToken).Convert();
                 return usr;
             }
         }
@@ -32,7 +32,7 @@ namespace ExperiencePortal.Service
                 {
                     User newUser = new DataAccess.User() { AuthenticationToken = authenticationToken, UserName = userName };
                     dataContext.GetByEntity<User>().Add(newUser);
-                    return newUser.ToModel();
+                    return newUser.Convert();
                 }
             }
             catch
