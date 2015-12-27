@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="ExperiencePortal.Service.DataAccessService" CodeBehind="DataAccessService.svc.cs" %>
