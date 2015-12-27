@@ -15,11 +15,9 @@ namespace ExperiencePortal.Service
     [ServiceBehavior(IncludeExceptionDetailInFaults =true)]
     public class DataAccessService : IDataAccessService
     {
-        public DataAccess.DataContext dataContext = null;
-
         public Models.User AuthenticateUser(string authentivationToken)
         {
-            using (dataContext = new DataAccess.DataContext())
+            using (DataAccess.DataContext dataContext = new DataAccess.DataContext())
             {
                 var usr =  dataContext.GetByEntity<User>().All().FirstOrDefault(u => u.AuthenticationToken == authentivationToken).ToModel();
                 return usr;
@@ -30,7 +28,7 @@ namespace ExperiencePortal.Service
         {
             try
             {
-                using (dataContext = new DataAccess.DataContext())
+                using (DataAccess.DataContext dataContext = new DataAccess.DataContext())
                 {
                     User newUser = new DataAccess.User() { AuthenticationToken = authenticationToken, UserName = userName };
                     dataContext.GetByEntity<User>().Add(newUser);
