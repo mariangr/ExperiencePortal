@@ -19,6 +19,15 @@ namespace ExperiencePortal.Service
         Models.User[] GetAllUsers(string authenticationToken);
 
         [OperationContract]
+        Models.User[] GetAllSubscribers(string authenticationToken);
+
+        [OperationContract]
+        Models.User[] GetMySubscriptions(string authenticationToken);
+
+        [OperationContract]
+        void RemoveSubscription(string userAuthenticationToken, string subscriptionAuthenticationToken);
+
+        [OperationContract]
         Models.UserSubscription SubscribeUser(string userAuthenticationToken, string subscriptionAuthenticationToken);
 
         [OperationContract]
