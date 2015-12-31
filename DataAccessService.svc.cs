@@ -132,7 +132,7 @@ namespace ExperiencePortal.Service
                 var userId = dataContext.GetByEntity<DataAccess.User>().All().FirstOrDefault(u => u.AuthenticationToken == userAuthenticationToken).ID;
                 var subscriptionId = dataContext.GetByEntity<DataAccess.User>().All().FirstOrDefault(u => u.AuthenticationToken == subscriptionAuthenticationToken).ID;
 
-                dataContext.GetByEntity<UserSubscription>().DeleteItemById(new { subscriptionId, userId });
+                dataContext.GetByEntity<UserSubscription>().DeleteItemById(subscriptionId, userId );
             }
         }
 
