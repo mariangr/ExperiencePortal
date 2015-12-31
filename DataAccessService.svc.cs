@@ -15,29 +15,66 @@ namespace ExperiencePortal.Service
     [ServiceBehavior(IncludeExceptionDetailInFaults =true)]
     public class DataAccessService : IDataAccessService
     {
-        public Models.User AuthenticateUser(string authentivationToken)
+        public Models.User GetUserById(int id)
         {
-            using (DataAccess.DataContext dataContext = new DataAccess.DataContext())
+            using (DataContext context = new DataContext())
             {
-                var usr =  dataContext.GetByEntity<User>().All().FirstOrDefault(u => u.AuthenticationToken == authentivationToken).Convert();
-                return usr;
+                return context.GetByEntity<User>().GetItemById(id).Convert();
             }
         }
 
-        public Models.User RegisterUser(string userName, string authenticationToken)
+        public Models.UserPost GetPostById(int id)
         {
-            try
+            using (DataContext context = new DataContext())
             {
-                using (DataAccess.DataContext dataContext = new DataAccess.DataContext())
-                {
-                    User newUser = new DataAccess.User() { AuthenticationToken = authenticationToken, UserName = userName };
-                    dataContext.GetByEntity<User>().Add(newUser);
-                    return newUser.Convert();
-                }
+                return context.GetByEntity<UserPost>().GetItemById(id).Convert();
             }
-            catch
+        }
+
+        public Models.SubscriptionStatus GetSubscriptionStatusById(int id)
+        {
+            using (DataContext context = new DataContext())
             {
-                return null;
+                return context.GetByEntity<SubscriptionStatus>().GetItemById(id).Convert();
+            }
+        }
+
+        //public Models.UserSubscription.
+
+        public Models.User AuthenticateUser(string authentivationToken, string userName)
+        {
+            using (DataContext dataContext = new DataAccess.DataContext())
+            {
+                User userData;
+                userData = dataContext.GetByEntity<User>().All().FirstOrDefault(u => u.AuthenticationToken == authentivationToken);
+                if (userData == null)
+                {
+                    userData = new User()
+                    {
+                        UserName = userName,
+                        AuthenticationToken = authentivationToken
+                    };
+                    dataContext.GetByEntity<User>().Add(userData);
+                    dataContext.Save();
+                }
+                else
+                {
+                    userData.UserName = userName;
+                }
+                return userData.Convert();
+            }
+        }
+
+        public Models.User[] GetAllUsers(string authenticationToken)
+        {
+            using (DataContext dataContext = new DataContext())
+            {
+                if (dataContext.GetByEntity<User>().All().FirstOrDefault(u => u.AuthenticationToken == authenticationToken) != null)
+                {
+                    return dataContext.GetByEntity<User>().All().Where(u => u.AuthenticationToken != authenticationToken).Select(u => u.Convert()).ToArray();
+                }
+                else
+                    return null;
             }
         }
 

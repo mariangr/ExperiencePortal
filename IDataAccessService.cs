@@ -13,7 +13,10 @@ namespace ExperiencePortal.Service
     public interface IDataAccessService
     {
         [OperationContract]
-        Models.User AuthenticateUser(string authentivationToken);
+        Models.User AuthenticateUser(string authentivationToken, string userName);
+
+        [OperationContract]
+        Models.User[] GetAllUsers(string authenticationToken);
 
         [OperationContract]
         int Sum(int first, int second);

@@ -74,5 +74,15 @@ namespace ExperiencePortal.Service.Extensions
                 PostDate = userPost.PostDate
             };
         }
+
+        public static Models.SubscriptionStatus Convert(this DataAccess.SubscriptionStatus subsStatus)
+        {
+            return new Models.SubscriptionStatus()
+            {
+                ID = subsStatus.ID,
+                StatusDescription = subsStatus.StatusDescription,
+                StatusName = subsStatus.StatusName
+            };
+        }
     }
 }
