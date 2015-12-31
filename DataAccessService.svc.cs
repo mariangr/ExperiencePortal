@@ -71,7 +71,13 @@ namespace ExperiencePortal.Service
             {
                 if (dataContext.GetByEntity<User>().All().FirstOrDefault(u => u.AuthenticationToken == authenticationToken) != null)
                 {
-                    return dataContext.GetByEntity<User>().All().Where(u => u.AuthenticationToken != authenticationToken).Select(u => u.Convert()).ToArray();
+                    List<Models.User> result = new List<Models.User>();
+                    var data = dataContext.GetByEntity<User>().All().Where(u => u.AuthenticationToken != authenticationToken);
+                    foreach (var item in data)
+                    {
+                        result.Add(item.Convert());
+                    }
+                    return result.ToArray();
                 }
                 else
                     return null;
