@@ -72,7 +72,8 @@ namespace ExperiencePortal.Service
                 if (dataContext.GetByEntity<User>().All().FirstOrDefault(u => u.AuthenticationToken == authenticationToken) != null)
                 {
                     List<Models.User> result = new List<Models.User>();
-                    var data = dataContext.GetByEntity<User>().All().Where(u => u.AuthenticationToken != authenticationToken);
+                    var data = dataContext.GetByEntity<User>().All().Where(u => u.AuthenticationToken != authenticationToken &&
+                    !u.SubscribedBy.Any(u2 => u2.User.AuthenticationToken == authenticationToken));
                     foreach (var item in data)
                     {
                         result.Add(item.Convert());
@@ -81,6 +82,26 @@ namespace ExperiencePortal.Service
                 }
                 else
                     return null;
+            }
+        }
+
+        public Models.UserSubscription SubscribeUser(string userAuthenticationToken, string subscriptionAuthenticationToken)
+        {
+            using (DataContext dataContext = new DataContext())
+            {
+                var userId = dataContext.GetByEntity<DataAccess.User>().All().FirstOrDefault(u => u.AuthenticationToken == userAuthenticationToken).ID;
+                var subscriptionId = dataContext.GetByEntity<DataAccess.User>().All().FirstOrDefault(u => u.AuthenticationToken == subscriptionAuthenticationToken).ID;
+
+                var subs = new DataAccess.UserSubscription() {
+                    UserID = userId,
+                    SubscriptionID = subscriptionId,
+                    SubscriptionStatusID = (int)Models.SubscriptionStatusEnum.Subscribed,
+                    LastPostReceivedDate = null
+                };
+
+                dataContext.GetByEntity<UserSubscription>().Add(subs);
+
+                return subs.Convert();
             }
         }
 

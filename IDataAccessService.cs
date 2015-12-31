@@ -19,6 +19,9 @@ namespace ExperiencePortal.Service
         Models.User[] GetAllUsers(string authenticationToken);
 
         [OperationContract]
+        Models.UserSubscription SubscribeUser(string userAuthenticationToken, string subscriptionAuthenticationToken);
+
+        [OperationContract]
         int Sum(int first, int second);
     }
 }

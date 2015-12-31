@@ -80,6 +80,7 @@
     <Compile Include="Extensions\ModelsExtensions.cs" />
     <Compile Include="IDataAccessService.cs" />
     <Compile Include="Models\SubscriptionStatus.cs" />
+    <Compile Include="Models\SubscriptionStatusEnum.cs" />
     <Compile Include="Models\UserPosts.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\UserSubscription.cs" />
