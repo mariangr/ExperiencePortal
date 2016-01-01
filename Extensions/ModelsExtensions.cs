@@ -71,7 +71,8 @@ namespace ExperiencePortal.Service.Extensions
                 Latitude = userPost.Latitude,
                 Longitude = userPost.Longitude,
                 Photo = userPost.Photo,
-                PostDate = userPost.PostDate
+                PostDate = userPost.PostDate,
+                User = userPost.User.Convert()
             };
         }
 

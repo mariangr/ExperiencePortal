@@ -19,5 +19,7 @@ namespace ExperiencePortal.Service.Models
         public double? Latitude { get; set; }
         [DataMember]
         public double? Longitude { get; set; }
+        [DataMember]
+        public User User { get; set; }
     }
 }
