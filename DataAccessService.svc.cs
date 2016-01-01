@@ -39,8 +39,6 @@ namespace ExperiencePortal.Service
             }
         }
 
-        //public Models.UserSubscription.
-
         public Models.User AuthenticateUser(string authentivationToken, string userName)
         {
             using (DataContext dataContext = new DataAccess.DataContext())
@@ -155,6 +153,67 @@ namespace ExperiencePortal.Service
                 return subs.Convert();
             }
         }
+
+        public bool MakeNewPost(string authenticationToken, Models.UserPost post)
+        {
+            try
+            {
+                using (DataContext context = new DataContext())
+                {
+                    context
+                        .GetByEntity<User>()
+                        .All()
+                        .FirstOrDefault(u => u.AuthenticationToken == authenticationToken).UserPosts
+                        .Add(post.Convert());
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public Models.UserPost[] GetMyPosts(string authenticationToken)
+        {
+            using (DataContext context = new DataContext())
+            {
+                var data = context.GetByEntity<User>().All().FirstOrDefault(u => u.AuthenticationToken == authenticationToken).UserPosts;
+                List<Models.UserPost> result = new List<Models.UserPost>();
+
+                foreach (var item in data)
+                {
+                    result.Add(item.Convert());
+                }
+
+                result.Sort((u, s) => (int)(s.PostDate.Value.Ticks - u.PostDate.Value.Ticks));
+
+                return result.ToArray();
+            }
+        }
+
+        public Models.UserPost[] GetSubscribedPosts(string authenticationToken)
+        {
+            using (DataContext context = new DataContext())
+            {
+                var data = context
+                    .GetByEntity<User>()
+                    .All()
+                    .FirstOrDefault(u => u.AuthenticationToken == authenticationToken).SubscribedFor.Select(sf => sf.SubscriptionUser.UserPosts);
+                List<Models.UserPost> result = new List<Models.UserPost>();
+
+                foreach (var item in data)
+                {
+                    foreach(var post in item)
+                        result.Add(post.Convert());
+                }
+
+                result.Sort((u,s) => (int)(s.PostDate.Value.Ticks - u.PostDate.Value.Ticks));
+
+                return result.ToArray();
+            }
+        }
+
 
         public int Sum(int first, int second)
         {

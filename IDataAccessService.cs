@@ -31,6 +31,15 @@ namespace ExperiencePortal.Service
         Models.UserSubscription SubscribeUser(string userAuthenticationToken, string subscriptionAuthenticationToken);
 
         [OperationContract]
+        bool MakeNewPost(string authenticationToken, Models.UserPost post);
+
+        [OperationContract]
+        Models.UserPost[] GetMyPosts(string authenticationToken);
+
+        [OperationContract]
+        Models.UserPost[] GetSubscribedPosts(string authenticationToken);
+
+        [OperationContract]
         int Sum(int first, int second);
     }
 }
