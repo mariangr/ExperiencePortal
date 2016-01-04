@@ -8,12 +8,10 @@ namespace ExperiencePortal.Service.Models
     public class UserSubscription
     {
         [DataMember]
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         [DataMember]
-        public int SubscriptionID { get; set; }
+        public string SubscriptionID { get; set; }
         [DataMember]
         public DateTime? LastPostReceivedDate { get; set; }
-        [DataMember]
-        public int SubscriptionStatusID { get; set; }
     }
 }

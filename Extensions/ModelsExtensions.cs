@@ -12,7 +12,6 @@ namespace ExperiencePortal.Service.Extensions
             return new DataAccess.User()
             {
                 AuthenticationToken = user.AuthenticationToken,
-                ID = user.ID,
                 UserName = user.UserName
             };
         }
@@ -23,7 +22,6 @@ namespace ExperiencePortal.Service.Extensions
             {
                 UserID = userSubscription.UserID,
                 SubscriptionID = userSubscription.SubscriptionID,
-                SubscriptionStatusID = userSubscription.SubscriptionStatusID,
                 LastPostReceivedDate = userSubscription.LastPostReceivedDate,
             };
         }
@@ -46,7 +44,6 @@ namespace ExperiencePortal.Service.Extensions
             return new Models.User()
             {
                 AuthenticationToken = user.AuthenticationToken,
-                ID = user.ID,
                 UserName = user.UserName
             };
         }
@@ -58,7 +55,6 @@ namespace ExperiencePortal.Service.Extensions
                 UserID = userSubscription.UserID,
                 LastPostReceivedDate = userSubscription.LastPostReceivedDate,
                 SubscriptionID = userSubscription.SubscriptionID,
-                SubscriptionStatusID = userSubscription.SubscriptionStatusID
             };
         }
 
@@ -73,16 +69,6 @@ namespace ExperiencePortal.Service.Extensions
                 Photo = userPost.Photo,
                 PostDate = userPost.PostDate,
                 User = userPost.User.Convert()
-            };
-        }
-
-        public static Models.SubscriptionStatus Convert(this DataAccess.SubscriptionStatus subsStatus)
-        {
-            return new Models.SubscriptionStatus()
-            {
-                ID = subsStatus.ID,
-                StatusDescription = subsStatus.StatusDescription,
-                StatusName = subsStatus.StatusName
             };
         }
     }

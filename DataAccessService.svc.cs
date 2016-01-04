@@ -31,14 +31,6 @@ namespace ExperiencePortal.Service
             }
         }
 
-        public Models.SubscriptionStatus GetSubscriptionStatusById(int id)
-        {
-            using (DataContext context = new DataContext())
-            {
-                return context.GetByEntity<SubscriptionStatus>().GetItemById(id).Convert();
-            }
-        }
-
         public Models.User AuthenticateUser(string authentivationToken, string userName)
         {
             using (DataContext dataContext = new DataAccess.DataContext())
@@ -127,10 +119,7 @@ namespace ExperiencePortal.Service
         {
             using (DataContext dataContext = new DataContext())
             {
-                var userId = dataContext.GetByEntity<DataAccess.User>().All().FirstOrDefault(u => u.AuthenticationToken == userAuthenticationToken).ID;
-                var subscriptionId = dataContext.GetByEntity<DataAccess.User>().All().FirstOrDefault(u => u.AuthenticationToken == subscriptionAuthenticationToken).ID;
-
-                dataContext.GetByEntity<UserSubscription>().DeleteItemById(subscriptionId, userId );
+                dataContext.GetByEntity<UserSubscription>().DeleteItemById(subscriptionAuthenticationToken, userAuthenticationToken);
             }
         }
 
@@ -138,13 +127,9 @@ namespace ExperiencePortal.Service
         {
             using (DataContext dataContext = new DataContext())
             {
-                var userId = dataContext.GetByEntity<DataAccess.User>().All().FirstOrDefault(u => u.AuthenticationToken == userAuthenticationToken).ID;
-                var subscriptionId = dataContext.GetByEntity<DataAccess.User>().All().FirstOrDefault(u => u.AuthenticationToken == subscriptionAuthenticationToken).ID;
-
                 var subs = new DataAccess.UserSubscription() {
-                    UserID = userId,
-                    SubscriptionID = subscriptionId,
-                    SubscriptionStatusID = (int)Models.SubscriptionStatusEnum.Subscribed,
+                    UserID = userAuthenticationToken,
+                    SubscriptionID = subscriptionAuthenticationToken,
                     LastPostReceivedDate = null
                 };
 
