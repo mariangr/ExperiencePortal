@@ -12,7 +12,7 @@ namespace ExperiencePortal.Service.Models
         [DataMember]
         public DateTime? PostDate { get; set; }
         [DataMember]
-        public int? UserID { get; set; }
+        public string UserID { get; set; }
         [DataMember]
         public byte[] Photo { get; set; }
         [DataMember]
