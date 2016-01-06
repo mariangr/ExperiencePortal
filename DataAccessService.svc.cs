@@ -205,21 +205,21 @@ namespace ExperiencePortal.Service
 
             using (DataContext context = new DataContext())
             {
-                var userSubscriptions = context.GetByEntity<UserSubscription>().All().Where(s => s.UserID == authenticationToken);
+                var userSubscriptions = context.GetByEntity<UserSubscription>().All().Where(s => s.UserID == authenticationToken).ToList();
 
-                foreach (var subscription in userSubscriptions)
+                for (var i = 0; i < userSubscriptions.Count(); i++)
                 {
                     if (!result)
                     {
-                        DateTime lastTimeChecked = subscription.LastPostReceivedDate.Value;
+                        DateTime lastTimeChecked = userSubscriptions[i].LastPostReceivedDate.Value;
 
-                        List<UserPost> currentPosts = subscription.SubscriptionUser.UserPosts.Where(sp => sp.PostDate > lastTimeChecked).ToList();
+                        List<UserPost> currentPosts = userSubscriptions[i].SubscriptionUser.UserPosts.Where(p => p.PostDate > lastTimeChecked).ToList() ;
                         if (currentPosts.Count > 0)
                         {
                             result = true;
                         }
                     }
-                    subscription.LastPostReceivedDate = DateTime.Now;
+                    userSubscriptions[i].LastPostReceivedDate = DateTime.Now;
                 }
             }
 
