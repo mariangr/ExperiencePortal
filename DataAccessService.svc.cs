@@ -130,7 +130,7 @@ namespace ExperiencePortal.Service
                 var subs = new DataAccess.UserSubscription() {
                     UserID = userAuthenticationToken,
                     SubscriptionID = subscriptionAuthenticationToken,
-                    LastPostReceivedDate = null
+                    LastPostReceivedDate = DateTime.Now
                 };
 
                 dataContext.GetByEntity<UserSubscription>().Add(subs);
@@ -199,6 +199,10 @@ namespace ExperiencePortal.Service
             }
         }
 
+        public bool HaveNewPosts(string authenticationToken)
+        {
+            return true;
+        }
 
         public int Sum(int first, int second)
         {

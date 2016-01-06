@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="ExperiencePortal.Service.NotificationService" CodeBehind="NotificationService.svc.cs" %>
