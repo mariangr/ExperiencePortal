@@ -40,6 +40,9 @@ namespace ExperiencePortal.Service
         Models.UserPost[] GetSubscribedPosts(string authenticationToken);
 
         [OperationContract]
+        bool GetNotification(string authenticationToken);
+
+        [OperationContract]
         int Sum(int first, int second);
     }
 }

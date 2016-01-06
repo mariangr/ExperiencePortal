@@ -199,9 +199,31 @@ namespace ExperiencePortal.Service
             }
         }
 
-        public bool HaveNewPosts(string authenticationToken)
+        public bool GetNotification(string authenticationToken)
         {
-            return true;
+            bool result = false;
+
+            using (DataContext context = new DataContext())
+            {
+                var userSubscriptions = context.GetByEntity<UserSubscription>().All().Where(s => s.UserID == authenticationToken);
+
+                foreach (var subscription in userSubscriptions)
+                {
+                    if (!result)
+                    {
+                        DateTime lastTimeChecked = subscription.LastPostReceivedDate.Value;
+
+                        List<UserPost> currentPosts = subscription.SubscriptionUser.UserPosts.Where(sp => sp.PostDate > lastTimeChecked).ToList();
+                        if (currentPosts.Count > 0)
+                        {
+                            result = true;
+                        }
+                    }
+                    subscription.LastPostReceivedDate = DateTime.Now;
+                }
+            }
+
+            return result;
         }
 
         public int Sum(int first, int second)
