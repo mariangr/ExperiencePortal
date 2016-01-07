@@ -32,7 +32,7 @@ namespace ExperiencePortal.Service.Extensions
             {
                 ID = userPost.ID,
                 UserID = userPost.UserID,
-                PostDate = userPost.PostDate,
+                PostDate = DateTime.Now,
                 Latitude = userPost.Latitude,
                 Longitude = userPost.Longitude,
                 Photo = userPost.Photo,
